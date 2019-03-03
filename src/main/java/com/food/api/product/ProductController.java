@@ -13,8 +13,8 @@ public class ProductController {
 	ProductService productService;
 
 	@RequestMapping(method=RequestMethod.GET,value="/products/{codebar}")
-	public Product getProductByCodebar(@PathVariable String codebar) {
-		return productService.getProductByCodebar(codebar);
+	public ProductResultDTO getProductByCodebar(@PathVariable String codebar) {
+		return productService.getProductResultByCodebar(codebar);
 	}
 	
 }

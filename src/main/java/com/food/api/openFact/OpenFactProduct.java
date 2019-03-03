@@ -8,6 +8,8 @@ import lombok.Data;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class OpenFactProduct {
 	private Nutriments nutriments;
+	private String product_name;
+	private String code;
 	public OpenFactProduct(){
 		nutriments = new Nutriments();
 	}

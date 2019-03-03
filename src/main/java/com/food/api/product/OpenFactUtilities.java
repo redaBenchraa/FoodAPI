@@ -39,7 +39,8 @@ public class OpenFactUtilities {
 		product.setFibers(getPoint(fiber_100g, fiberMetric));
 		product.setProteins(getPoint(proteins_100, proteinMetric));
 		product.setSugar(getPoint(sugar_100g, sugarMetric));
-		
+		product.setName(object.getProduct().getProduct_name());
+		product.setCodebar(object.getProduct().getCode());
 		return product;
 	}
 	

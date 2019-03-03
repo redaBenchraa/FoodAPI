@@ -16,8 +16,26 @@ public class ProductService {
 	public Product getProductByCodebar(String barcode) {
 		OpenFactObject factObject = openFactUtilities.get(barcode);
 		Product product = openFactUtilities.mapOpenFactObjectToProduct(factObject);
-		productRepository.save(product);
 		return product;
+	}
+	
+	public ProductResultDTO getProductResultByCodebar(String barcode) {
+		OpenFactObject factObject = openFactUtilities.get(barcode);
+		Product product = openFactUtilities.mapOpenFactObjectToProduct(factObject);
+		productRepository.save(product);
+		return new ProductResultDTO(product);
+	}
+	
+	public Product saveProduct(Product product) {
+		return productRepository.save(product);
+	}
+	
+	public void deleteProduct(Product product) {
+		productRepository.delete(product);
+	}
+	
+	public Product getProduct(Long id) {
+		return productRepository.findById(id).get();
 	}
 	
 }
