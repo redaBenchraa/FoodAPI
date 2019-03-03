@@ -61,9 +61,6 @@ public class OpenFactTest {
 	public void TestProductResults() {
 		Product product = openFactUtilities.mapOpenFactObjectToProduct(openFactProduct);
 		ProductResultDTO result = new ProductResultDTO(product);
-		assertEquals(result.getScore(), -6);
-		assertEquals(result.getColor(), "Green");
-		assertEquals(result.getStatus(), "Trop bon");
 		assertEquals(result.getQualities().size(), 6);
 		assertTrue(result.getQualities().contains("Energy"));
 		assertTrue(result.getQualities().contains("Saturated fats"));
@@ -71,5 +68,9 @@ public class OpenFactTest {
 		assertTrue(result.getQualities().contains("Salt"));
 		assertTrue(result.getQualities().contains("Fibers"));
 		assertTrue(result.getQualities().contains("Proteins"));
+		assertEquals(result.getScore(), -6);
+		assertEquals(result.getColor(), "Green");
+		assertEquals(result.getStatus(), "Trop bon");
+
 	}
 }
