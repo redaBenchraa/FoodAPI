@@ -1,12 +1,9 @@
 package com.food.api.basket;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.food.api.user.User;
-import com.food.api.user.UserRepository;
 import com.food.api.user.UserService;
 
 @Service

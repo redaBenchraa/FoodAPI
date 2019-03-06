@@ -10,6 +10,10 @@ public class ProductService {
 
 	@Autowired
 	private ProductRepository productRepository;
+	
+	@Autowired
+	private AdditiveRepository additiveRepository;
+	
 	@Autowired
 	private OpenFactUtilities openFactUtilities;
 	
@@ -23,11 +27,17 @@ public class ProductService {
 		OpenFactObject factObject = openFactUtilities.get(barcode);
 		Product product = openFactUtilities.mapOpenFactObjectToProduct(factObject);
 		productRepository.save(product);
-		return new ProductResultDTO(product);
+		return openFactUtilities.CreateProductResultDTO(product);
 	}
 	
 	public Product saveProduct(Product product) {
-		return productRepository.save(product);
+		Product obj = productRepository.save(product);
+		product.getAdditives().forEach(x -> {
+			Additive additive = x;
+			additive.setProduct(obj);
+			additiveRepository.save(additive);
+		});
+		return obj;
 	}
 	
 	public void deleteProduct(Product product) {

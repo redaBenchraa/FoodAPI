@@ -5,15 +5,14 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.food.api.product.OpenFactUtilities;
 import com.food.api.product.Product;
 import com.food.api.product.ProductResultDTO;
 import com.food.api.product.ProductService;
-import com.food.api.user.User;
 
 @RestController
 public class BasketController {
@@ -24,6 +23,9 @@ public class BasketController {
 	
 	@Autowired
 	ProductService productService;
+	
+	@Autowired
+	OpenFactUtilities openFactUtilities;
 
 	@RequestMapping(method=RequestMethod.GET,value="/baskets/{id}")
 	public Basket getBasket(@PathVariable Long id){
@@ -35,7 +37,7 @@ public class BasketController {
 		return basketService
 				.getBasket(id)
 				.getProducts()
-				.stream().map(x -> new ProductResultDTO(x))
+				.stream().map(x -> openFactUtilities.CreateProductResultDTO(x))
 				.collect(Collectors.toList());
 	}
 	
@@ -49,7 +51,6 @@ public class BasketController {
 	
 	@RequestMapping(method=RequestMethod.DELETE,value="/baskets/{id}/products/{productId}")
 	public void deleteProduct(@PathVariable Long id, @PathVariable Long productId){
-		Basket basket = basketService.getBasket(id);
 		Product product = productService.getProduct(productId);
 		productService.deleteProduct(product);
 	}
@@ -57,7 +58,7 @@ public class BasketController {
 	@RequestMapping(method=RequestMethod.GET,value="/baskets/{id}/products/{productId}")
 	public ProductResultDTO getProductSynthese(@PathVariable Long id, @PathVariable Long productId){
 		Product product = productService.getProduct(productId);
-		return new ProductResultDTO(product);
+		return openFactUtilities.CreateProductResultDTO(product);
 	}
 
 }

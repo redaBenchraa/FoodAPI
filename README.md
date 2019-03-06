@@ -1,4 +1,4 @@
 # FoodAPI
 
-App deplyed : 
+App deployed : 
 https://foodapizz3.herokuapp.com
