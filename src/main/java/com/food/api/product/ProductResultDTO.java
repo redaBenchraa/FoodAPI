@@ -2,11 +2,20 @@ package com.food.api.product;
 
 
 import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.food.api.rules.NutritionScore;
+import com.food.api.rules.NutritionScoreService;
 
 import lombok.Data;
 
 @Data
 public class ProductResultDTO {
+	@Autowired
+	NutritionScoreService nutritionScoreService;
+	public static List<NutritionScore> nutritionScores;
 	private String productName;
 	private String barcode;
 	private String status;
@@ -14,7 +23,10 @@ public class ProductResultDTO {
 	private int score;
 	private ArrayList<String> qualities;
 	private ArrayList<String> flaws;
+
 	public ProductResultDTO(Product product) {
+		nutritionScores = nutritionScoreService.GetAllNutritionScores();
+
 		if(product == null)
 			return;
 		
@@ -24,22 +36,14 @@ public class ProductResultDTO {
 		flaws = new ArrayList<>();
 		score = product.getEnergy() + product.getSaturated_fat() + product.getSugar() + product.getSalt() 
 		- (product.getFibers() + product.getProteins());
-		if(score <= -1) {
-			status = "Trop bon";
-			color = "Green";
-		} else if(score <= 2) {
-			status = "Bon";
-			color = "Light green";
-		} else if(score <= 10) {
-			status = "Mangeable";
-			color = "Yellow";
-		} else if(score <= 18) {
-			status = "Mouai";
-			color = "Orange";
-		} else {
-			status = "Degueu";
-			color = "Red";
-		}
+		
+		nutritionScores.forEach(x -> {
+			if(score >= x.getLower_bound() && score <= x.getUpper_bound()) {
+				status = x.getClasse();
+				color = x.getColor();
+			}
+		});
+		
 		
 		if(product.getEnergy() <= 3) {
 			qualities.add("Energy");
