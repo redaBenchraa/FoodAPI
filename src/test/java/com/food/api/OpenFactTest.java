@@ -60,7 +60,7 @@ public class OpenFactTest {
 	@Test
 	public void TestProductResults() {
 		Product product = openFactUtilities.mapOpenFactObjectToProduct(openFactProduct);
-		ProductResultDTO result = new ProductResultDTO(product);
+		ProductResultDTO result = openFactUtilities.CreateProductResultDTO(product);
 		assertEquals(result.getQualities().size(), 6);
 		assertTrue(result.getQualities().contains("Energy"));
 		assertTrue(result.getQualities().contains("Saturated fats"));

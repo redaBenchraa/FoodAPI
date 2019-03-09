@@ -52,7 +52,6 @@ public class OpenFactUtilities {
 		Nutriments nutriments = object.getProduct().getNutriments();
 		
 		Product product = new Product();
-		
 		product.setEnergy(getPoint(Float.parseFloat(nutriments.getEnergy_100g()), energyMetric));
 		product.setSaturated_fat(getPoint(nutriments.getSaturated_fat_100g(), saturatedFatMetric));
 		product.setSalt(getPoint(nutriments.getSalt_100g(), soduimMetric));
