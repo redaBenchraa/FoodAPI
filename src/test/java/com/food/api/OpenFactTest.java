@@ -12,7 +12,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.food.api.openFact.OpenFactObject;
-import com.food.api.openFact.OpenFactProduct;
 import com.food.api.product.OpenFactUtilities;
 import com.food.api.product.Product;
 import com.food.api.product.ProductResultDTO;

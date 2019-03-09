@@ -61,10 +61,10 @@ public class OpenFactUtilities {
 		product.setName(object.getProduct().getProduct_name());
 		product.setCodebar(object.getProduct().getCode());
 		product.setAdditives(new ArrayList<>());
-		object.getProduct().getAdditives_tags().forEach(x -> {
+		object.getProduct().getAdditives_tags().forEach(x->{
 			if(!x.isEmpty() && x.split(":").length >= 2) {
-				String code =  x.split(":")[1];
-				Additive additive = additives.stream().filter(z -> z.getCode().toLowerCase().equals(code.toLowerCase())).findFirst().orElse(null);
+				String code =  x.split(":")[1].trim().toUpperCase();
+				Additive additive = additives.stream().filter(z -> z.getCode().equals(code)).findFirst().orElse(null);
 				if(additive != null) {
 					product.getAdditives().add(additive);
 				}
@@ -173,9 +173,9 @@ public class OpenFactUtilities {
 		    while ((line = br.readLine()) != null) {
 		        String[] values = line.split(";");
 		        Additive additive = new Additive();
-		        additive.setCode(values[0]);
-		        additive.setName(values.length > 1 ? values[1] : "");
-		        additive.setAdvice(values.length > 2 ? values[2] : "");
+		        additive.setCode(values[0].toUpperCase().trim());
+		        additive.setName(values.length > 1 ? values[1].trim() : "");
+		        additive.setAdvice(values.length > 2 ? values[2].trim() : "");
 		        additives.add(additive);
 		    }
 		    br.close();
